@@ -11,7 +11,7 @@ tweets = tweets.map(tweet => {
   tweet.isFlagged = tweet.isFlagged !== "f";
   return tweet;
 })
-.slice(0, 50);
+// .slice(0, 50);
 
 main("www");
 

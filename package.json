@@ -1,17 +1,31 @@
 {
   "name": "liquidjs-tweets",
+  "description": "Build a static site from a JSON file of tweet data.",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
   "author": "Peter deHaan <peter@deseloper.com> (https://about.me/peterdehaan)",
-  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/pdehaan/liquidjs-tweets/issues"
+  },
+  "dependencies": {},
   "devDependencies": {
     "liquidjs": "^9.19.0",
     "prettier": "^2.2.1"
+  },
+  "homepage": "https://github.com/pdehaan/liquidjs-tweets#readme",
+  "keywords": [
+    "liquid",
+    "liquidjs",
+    "tweets",
+    "twitter"
+  ],
+  "license": "MPL-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdehaan/liquidjs-tweets.git"
+  },
+  "scripts": {
+    "build": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

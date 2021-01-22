@@ -67,11 +67,11 @@ async function writeTweetEmbed(filename="", data={}, engine) {
 }
 
 async function writeHtml(filename="", output="") {
-  const $output = prettier.format(output, { parser: "html" });
-  await fs.writeFile(filename, $output);
+  // const output = prettier.format(output, { parser: "html" });
+  await fs.writeFile(filename, output);
 }
 
 async function writeJson(filename="", output="") {
-  const $output = prettier.format(output, { parser: "json" });
-  await fs.writeFile(filename, $output);
+  // const output = prettier.format(output, { parser: "json" });
+  await fs.writeFile(filename, output);
 }

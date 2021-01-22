@@ -15,18 +15,22 @@ tweets = tweets.map(tweet => {
 
 main("www");
 
+function join(...dirs) {
+  return (dir="") => path.join(...dirs, dir);
+}
+
 async function main(outputDir="www") {
   const engine = new Liquid({
     root: path.resolve(__dirname, 'views'),
     extname: '.liquid'
   });
 
-  const baseDir = path.join(__dirname, outputDir);
-  await fs.mkdir(baseDir, { recursive: true });
+  const baseDir = join(__dirname, outputDir);
+  await fs.mkdir(baseDir(), { recursive: true });
   
-  await writeIndex(path.join(baseDir, "index.html"), engine);
-  await write404(path.join(baseDir, "404.html"), engine);
-  await writeTweets(tweets, baseDir, engine);
+  await writeIndex(baseDir("index.html"), engine);
+  await write404(baseDir("404.html"), engine);
+  await writeTweets(tweets, baseDir(), engine);
 }
 
 async function writeIndex(filename, engine) {
@@ -40,14 +44,13 @@ async function write404(filename, engine) {
 }
 
 async function writeTweets(tweets=[], baseDir="", engine) {
-  const tweetBaseDir = path.join(baseDir, "realDonaldTrump/status");
   for (const tweet of tweets) {
-    const tweetIdBaseDir = path.join(tweetBaseDir, tweet.id.toString());
-    await fs.mkdir(tweetIdBaseDir, { recursive: true });
+    const tweetIdBaseDir = join(baseDir, "realDonaldTrump/status", tweet.id.toString());
+    await fs.mkdir(tweetIdBaseDir(), { recursive: true });
 
-    await writeTweet(path.join(tweetIdBaseDir, "index.html"), tweet, engine);
-    await writeTweetData(path.join(tweetIdBaseDir, "data.json"), tweet);
-    await writeTweetEmbed(path.join(tweetIdBaseDir, "embed.html"), tweet, engine);
+    await writeTweet(tweetIdBaseDir("index.html"), tweet, engine);
+    await writeTweetData(tweetIdBaseDir("data.json"), tweet);
+    await writeTweetEmbed(tweetIdBaseDir("embed.html"), tweet, engine);
   }
 }
 
@@ -67,11 +70,11 @@ async function writeTweetEmbed(filename="", data={}, engine) {
 }
 
 async function writeHtml(filename="", output="") {
-  // const output = prettier.format(output, { parser: "html" });
+  // output = prettier.format(output, { parser: "html" });
   await fs.writeFile(filename, output);
 }
 
 async function writeJson(filename="", output="") {
-  // const output = prettier.format(output, { parser: "json" });
+  // output = prettier.format(output, { parser: "json" });
   await fs.writeFile(filename, output);
 }

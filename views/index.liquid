@@ -1,0 +1,113 @@
+{% layout "layouts/base.liquid" %}
+
+{% block content %}
+<section>
+    <style>
+        mark.bad {
+            color: red;
+            text-decoration: line-through;
+            background-color: unset;
+        }
+        mark.good {
+            color: green;
+            background-color: unset;
+        }
+    </style>
+    <h2>How to use this archive</h2>
+    <p>The archive functions as a drop-in replacement for the now removed tweets.
+        <br><br>
+        ❌ <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/realDonaldTrump/status/98454970654916600">https://<mark class="bad">twitter.com</mark>/realDonaldTrump/status/98454970654916600</a>
+        <br><br>
+        ✅ <a href="https://trumptwitter.org/realDonaldTrump/status/98454970654916600">https://<mark class="good">trumptwitter.org</mark>/realDonaldTrump/status/98454970654916600</a>
+    </p>
+    <label for="twitterURL">You can also paste a Twitter URL below and be redirected to the archived tweet:</label>
+    <div id="tweetRedirect" style="display: flex; width: 100%; justify-content: space-between;">
+        <input id="twitterURL" name="twitterURL" type="input" style="width: 75%;" placeholder="e.g. https://twitter.com/realDonaldTrump/status/98454970654916600" />
+        <button id="findTweet"><b>Find Tweet</b></button>
+    </div>
+    <small id="invalidURL" style="color:red; display: none;">The URL entered is not a valid Trump tweet.</small>
+</section>
+<section>
+    <details>
+        <summary>
+            Web Extension
+        </summary>
+        <p>Install the <em>Trump Twitter Archive Web Extension</em> on your browser to automatically swap broken <mark class="bad">twitter.com</mark> links to Trump's tweets with working <mark class="good">trumptwitter.org</mark> links--on <em>every</em> site you visit.</p>
+        <ul>
+            <li>
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/trump-twitter-archive/">Add to Firefox</a>
+            </li>
+            <li>
+                <p>Add to Chrome <em>(Coming Soon)</em></p>
+            </li>
+        </ul>
+        <p>Want to test if the extension is working? Try clicking on the Twitter link above, marked by the ❌</p>
+        <hr>
+        <h4>Do you manage a website?</h4>
+        <p>You can also include the following JavaScript in your website to swap out all links on a page.</p>
+        <div style="display: flex; justify-content: space-between;">
+            <input id="JSText" type="text" style="width: 75%" value="<script>for(let link of document.links){if(link.href.includes('twitter.com/realDonaldTrump/status/')){link.href=link.href.replace('twitter.com/realDonaldTrump/status/','trumptwitter.org/realDonaldTrump/status/');}}</script>" />
+            <button id="copyJSText">Copy</button>
+        </div>
+    </details>
+</section>
+<section>    
+    <details>
+        <summary>
+            Frequently Asked Questions
+        </summary>
+        <ul>
+            <li>
+                <b>Where is your data from?</b>
+                <p>
+                    The scraped tweet data comes from another excellent <a href="https://www.thetrumparchive.com/">project.</a> Said project has been referenced by <em>"FactCheck.org, PolitiFact, Snopes, and Wikipedia, along with almost every major news outlet"</em>, and is considered to be accurate.
+                </p>
+            </li>
+            <li>
+                <b><em>Why</em> did you make this archive?</b>
+                <p>
+                    While there are other projects that also preserve Trump's tweets, this project differs from them in that it focuses on presentation, archival referencing, and mitigating <a href="https://en.wikipedia.org/wiki/Link_rot">link rot</a>.
+                </p>
+            </li>
+            <li>
+                <b><em>How</em> did you make this archive?</b>
+                <p>
+                    I used <a href="https://developer.mozilla.org/en-US/docs/Learn">HTML, CSS, and JavaScript.</a> I also used <a href="https://www.11ty.dev/">Eleventy</a>, which helped generate tens of thousands of pages from the Twitter data. 
+                </p>
+                <p>
+                    The source code for the archive can be found <a href="#">here.</a>
+                </p>
+            </li>
+            <li>
+                <b>Can I contact you?</b>
+                <p>
+                    Yes, send an email to <a href="mailto:trumptwitterorg@gmail.com">trumptwitterorg@gmail.com</a>
+                </p>
+            </li>
+        </ul>
+    </details>
+</section>
+<script>
+    // Find Tweet
+    document.getElementById('findTweet').addEventListener('click', () => {
+        try {
+            const url = new URL(document.getElementById('twitterURL').value);
+            if (url.hostname === "twitter.com") {
+                url.hostname = "trumptwitter.org";
+            } else {
+                throw new Error("Invalid URL");
+            }
+            window.location.href = url.href;
+        } catch (error) {
+            document.getElementById("invalidURL").style.display = "block";
+        }
+    })
+
+    function copy() {
+        var copyText = document.querySelector("#JSText");
+        copyText.select();
+        document.execCommand("copy");
+    }
+    document.querySelector("#copyJSText").addEventListener("click", copy);
+</script>
+{% endblock %}

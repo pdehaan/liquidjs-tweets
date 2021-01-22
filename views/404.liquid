@@ -1,0 +1,29 @@
+{% layout "layouts/base.liquid" %}
+
+{% block content %}
+<section>
+    <h2>404: Page not found.</h2>
+    <label for="twitterURL">Double check that the Twitter URL is correct and try again here:</label>
+    <div id="tweetRedirect" style="display: flex; width: 100%; justify-content: space-between;">
+        <input id="twitterURL" name="twitterURL" type="input" style="width: 75%;" placeholder="e.g. https://twitter.com/realDonaldTrump/status/98454970654916600" />
+        <button id="findTweet"><b>Find Tweet</b></button>
+    </div>
+    <small id="invalidURL" style="color:red; display: none;">The URL entered is not a valid Trump tweet.</small>
+    <script>
+        // Find Tweet
+        document.getElementById('findTweet').addEventListener('click', () => {
+            try {
+                const url = new URL(document.getElementById('twitterURL').value);
+                if (url.hostname === "twitter.com") {
+                    url.hostname = "trumptwitter.org";
+                } else {
+                    throw new Error("Invalid URL");
+                }
+                window.location.href = url.href;
+            } catch (error) {
+                document.getElementById("invalidURL").style.display = "block";
+            }
+        })
+    </script>
+</section>
+{% endblock %}

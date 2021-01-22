@@ -1,0 +1,17 @@
+{
+  "name": "liquidjs-tweets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Peter deHaan <peter@deseloper.com> (https://about.me/peterdehaan)",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "liquidjs": "^9.19.0",
+    "prettier": "^2.2.1"
+  }
+}

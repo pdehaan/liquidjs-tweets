@@ -1,0 +1,22 @@
+<html lang="en">
+    <head>
+        <title>Tweet / Trump Twitter Archive</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    </head>
+    <body>
+        <figure>
+            <blockquote cite="https://twitter.com/realDonaldTrump/status/{{tweet.id}}">
+                <p>{{tweet.text}}</p>
+            </blockquote>
+            <figcaption>
+                <b>— @realDonaldTrump</b> (Archived at <cite><a href="https://trumptwitter.org">trumptwitter.org</a></cite>)
+                <br><br>
+                <b>Date:</b> {{tweet.date}}
+                <br>
+                <b>Favorites:</b> {{ tweet.favorites }}
+                <br>
+                <b>Retweets:</b> {{ tweet.retweets }}
+            </figcaption>
+        </figure>
+    </body>
+</html>

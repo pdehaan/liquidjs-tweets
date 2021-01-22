@@ -1,0 +1,50 @@
+{% layout "layouts/base.liquid" %}
+
+{% block content %}
+  <hr/>
+  <section>
+      <figure>
+          <blockquote cite="https://twitter.com/realDonaldTrump/status/{{tweet.id}}">
+              <p>{{tweet.text}}</p>
+          </blockquote>
+          <figcaption>
+              <b>— @realDonaldTrump</b> 
+              <br><br>
+              <b>Date:</b> {{tweet.date}}
+              <br>
+              <b>Favorites:</b> {{tweet.favorites}}
+              <br>
+              <b>Retweets:</b> {{tweet.retweets}}
+              <details>
+                  <summary>Additional Metadata</summary>
+                  <span><b>ID:</b> {{tweet.id}}</span>
+                  <span><b>Device:</b> {{tweet.device}}</span>
+                  <span><b>Retweet:</b> {{tweet.isRetweet}}</span>
+                  <span><b>Deleted:</b> {{tweet.isDeleted}}</span>
+                  <span><b>Flagged:</b> {{tweet.isFlagged}}</span>
+              </details>
+              <details>
+                  <summary>Cite this Tweet</summary>
+                  <b>APA:</b> Trump, D. J. [@realDonaldTrump]. (2020, September 28). {{tweet.text}} [Tweet]. Twitter. https://twitter.com/realDonaldTrump/status/{{tweet.id}}
+                  <hr>
+                  <b>MLA:</b> Trump, Donald J. (@realDonaldTrump). “{{tweet.text}}” Date posted, Time Posted. Tweet.
+              </details>
+              <details>
+                  <summary>Embed this Tweet</summary>
+                  <div style="display: flex; justify-content: space-between;">
+                      <input id="iframeText" type="text" style="width: 75%" value="<iframe src='https://trumptwitter.org/realDonaldTrump/status/{{tweet.id}}/embed'></iframe>" />
+                      <button id="copyIframeText">Copy</button>
+                  </div>
+              </details>
+          </figcaption>
+      </figure>
+      <script>
+          function copy() {
+              var copyText = document.querySelector("#iframeText");
+              copyText.select();
+              document.execCommand("copy");
+          }
+          document.querySelector("#copyIframeText").addEventListener("click", copy);
+      </script>
+  </section>
+{% endblock %}
